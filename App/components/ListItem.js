@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     padding: 5,
     position: 'absolute',
-    right: 0,
+    right: 20,
   },
   textHigh: {
     color: '#FFF5F5',

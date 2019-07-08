@@ -104,7 +104,7 @@ class FoodList extends React.Component {
           {this.renderFilters()}
           <ScrollView>
             {removeFilters ? 
-              food.map((f, index) => 
+              food.map((f, index) =>
                 <React.Fragment key={index}>
                   <ListItem 
                     name={f.food} 
