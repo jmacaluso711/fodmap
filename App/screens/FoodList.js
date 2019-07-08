@@ -1,12 +1,11 @@
 import React from 'react';
 import { 
   SafeAreaView, 
-  View, 
+  View,
   Text, 
   ScrollView, 
   ActivityIndicator,
-  Picker,
-  Platform,
+  Header,
   Dimensions,
   StyleSheet,
   TouchableOpacity
@@ -16,16 +15,19 @@ import ListItem, { Separator } from '../components/ListItem';
 const screen = Dimensions.get("window");
 
 const styles = StyleSheet.create({
-  filterContentContainer: {
-    alignItems: 'center',
+  filterContainer: {
     height: 75,
     paddingHorizontal: 10,
+    backgroundColor: '#2D3748'
+  },
+  filterContentContainer: {
+    alignItems: 'center',
   },
   button: {
     backgroundColor: '#3182CE',
     paddingVertical: 5,
     paddingHorizontal: 10,
-    margin: 5,
+    marginHorizontal: 8,
     borderRadius: 3
   },
   buttonText: {
