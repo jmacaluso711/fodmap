@@ -1,14 +1,16 @@
 import React from 'react';
-import { 
-  SafeAreaView, 
+import {
+  SafeAreaView,
   View,
-  Text, 
-  ScrollView, 
+  Text,
+  ScrollView,
   ActivityIndicator,
-  Header,
   Dimensions,
   StyleSheet,
-  TouchableOpacity
+  TouchableOpacity,
+  Platform,
+  StatusBar,
+  FlatList
 } from 'react-native';
 import ListItem, { Separator } from '../components/ListItem';
 
@@ -33,6 +35,13 @@ const styles = StyleSheet.create({
   buttonText: {
     color: '#fff',
     fontWeight: 'bold'
+  },
+  androidSafeArea: {
+    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0
+  },
+  activityContainer: {
+    flex: 1,
+    justifyContent: 'center'
   }
 })
 
@@ -79,7 +88,7 @@ class FoodList extends React.Component {
         {this.state.categoryList.map((item) => (
           <TouchableOpacity
             style={styles.button}
-            key={item} 
+            key={item}
             onPress={() => {
               const filteredList = [...this.state.food].filter(f => f.category === item);
               this.setState({
@@ -95,19 +104,30 @@ class FoodList extends React.Component {
     )
   }
 
+  renderItem(data) {
+    return (
+      <ListItem
+        name={data.item.food}
+        fodMap={data.item.fODMap}
+      />
+    )
+  }
+
+  keyExtractor = (item, index) => item.food;
+
   render() {
     const { food, loading, filteredList, removeFilters } = this.state;
 
     if (!loading) {
       return (
-        <SafeAreaView>
+        <SafeAreaView style={styles.androidSafeArea}>
           {this.renderFilters()}
           <ScrollView>
-            {removeFilters ? 
+            {removeFilters ?
               food.map((f, index) =>
                 <React.Fragment key={index}>
-                  <ListItem 
-                    name={f.food} 
+                  <ListItem
+                    name={f.food}
                     fodMap={f.fODMap}
                   />
                   <Separator />
@@ -127,7 +147,11 @@ class FoodList extends React.Component {
         </SafeAreaView>
       )
     } else {
-      return <ActivityIndicator />
+      return (
+        <View style={styles.activityContainer}>
+          <ActivityIndicator />
+        </View>
+      )
     }
   }
 }
